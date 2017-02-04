@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../WEB-INF/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form id="formNew">
+            <h:outputScript name="detailEdit.js" library="js" />
+            <p:growl id="growl"  showSummary="false" showDetail="true" autoUpdate="true" />
+            <p:toolbar id="toolbar" styleClass="topToolbar">
+                <f:facet name="left">
+                    <p:button id="btnReturn" value="返回" outcome="purchaseorder" icon="ui-icon-arrowreturn-1-w"  />
+                </f:facet>
+                <f:facet name="right">
+                    <p:commandButton id="btnSave" value="保存" actionListener="#{purchaseTransactionManagedBean.persist()}" icon="ui-icon-disk"
+                                     process="@this,plgHead,:formNew:tabView:plgBase"
+                                     update="formNew"/>
+                </f:facet>
+            </p:toolbar>
+            <p:panel id="panelHead" header="进货登记－新增">
+                <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
+                    <p:row>
+                        <p:column styleClass="Wid20"><p:outputLabel value="编号" for="formid" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:inputText id="formid" value="#{purchaseTransactionManagedBean.newEntity.formid}" title="Formid"
+                                         required="true" requiredMessage="请输入编号" disabled="#{purchaseTransactionManagedBean.currentPrgGrant.sysprg.noauto}"/>
+                        </p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="进货日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <p:calendar id="formdate" value="#{purchaseTransactionManagedBean.newEntity.formdate}" title="Formdate"
+                                        pattern="yyyy/MM/dd" required="true" requiredMessage="请输入进货日期">
+                            </p:calendar>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="进货类型" for="purtype" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="purtype" value="#{purchaseTransactionManagedBean.newEntity.purtype}" title="purtype"
+                                             required="true" requiredMessage="请输入进货类型">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="成品" itemValue="100" />
+                                <f:selectItem itemLabel="半成品" itemValue="200" />
+                                <f:selectItem itemLabel="原料" itemValue="300" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><p:outputLabel value="供应商" for="vendor" /></p:column>
+                        <p:column>
+                            <p:inputText id="vendor" value="#{purchaseTransactionManagedBean.newEntity.vendor.vendor}" title="vendor"  styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入供应商" readonly="true"/>
+                            <p:commandButton id="btnSelect" actionListener="#{purchaseTransactionManagedBean.openDialog('vendorSelect')}" icon="ui-icon-extlink"
+                                             process="@this,plgHead" >
+                                <p:ajax event="dialogReturn" listener="#{purchaseTransactionManagedBean.handleDialogReturnWhenNew}"
+                                        update="plgHead,:formNew:tabView:plgBase" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="部门" for="deptid" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="deptid" value="#{purchaseTransactionManagedBean.newEntity.dept}" title="Deptid"
+                                             converter="departmentConverter"  required="true" requiredMessage="请输入部门">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{purchaseTransactionManagedBean.deptList}" var="d" itemLabel="#{d.dept}" itemValue="#{d}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column><p:outputLabel value="进货员" for="buyer" /></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="buyer" value="#{purchaseTransactionManagedBean.newEntity.buyer}"
+                                             converter="systemUserConverter" required="true" requiredMessage="请输入进货员">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="#{purchaseTransactionManagedBean.systemUserList}" var="u" itemLabel="#{u.username}" itemValue="#{u}"/>
+                            </p:selectOneMenu>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="币别" for="currency" /></p:column>
+                        <p:column>
+                            <p:inputText id="currency" value="#{purchaseTransactionManagedBean.newEntity.currency}" title="Currency" styleClass="inputWithButton"
+                                         required="true" requiredMessage="请输入币别" readonly="true"/>
+                            <p:commandButton id="btnCurrencySelect" actionListener="#{purchaseTransactionManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink"
+                                             process="@this" >
+                                <p:ajax event="dialogReturn" listener="#{purchaseTransactionManagedBean.handleDialogReturnCurrencyWhenEdit}"
+                                        update="currency,exchange" />
+                            </p:commandButton>
+                        </p:column>
+                        <p:column><p:outputLabel value="汇率" for="exchange" /></p:column>
+                        <p:column>
+                            <p:inputText id="exchange" value="#{purchaseTransactionManagedBean.newEntity.exchange}" title="Exchange"
+                                         required="true" requiredMessage="请输入汇率"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><h:outputText value="税别"/></p:column>
+                        <p:column>
+                            <p:selectOneMenu id="taxtype" value="#{purchaseTransactionManagedBean.newEntity.taxtype}" title="Taxtype"
+                                             required="true" requiredMessage="请输入税别" disabled="true">
+                                <f:selectItem itemLabel="内含" itemValue="0" />
+                                <f:selectItem itemLabel="外加" itemValue="1" />
+                                <f:selectItem itemLabel="零税" itemValue="2" />
+                                <f:selectItem itemLabel="免税" itemValue="3" />
+                            </p:selectOneMenu>
+                        </p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="税率" /></p:column>
+                        <p:column styleClass="Wid30">
+                            <h:outputText id="taxrate" value="#{purchaseTransactionManagedBean.newEntity.taxrate}" title="taxrate" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column><p:outputLabel value="付款方式" for="paykind" /></p:column>
+                        <p:column>
+                            <p:inputText id="paykind" value="#{purchaseTransactionManagedBean.newEntity.paykind}" title="Paykind" />
+                        </p:column>
+                        <p:column><p:outputLabel value="付款条件" for="payment" /></p:column>
+                        <p:column>
+                            <p:inputText id="payment" value="#{purchaseTransactionManagedBean.newEntity.payment}" title="Payment" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+            <p:tabView id="tabView" styleClass="tabView">
+                <p:tab title="基础信息">
+                    <p:panel id="panelBase">
+                        <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="品号" for="itemmaster" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <p:inputText id="itemmaster" value="#{purchaseTransactionManagedBean.newEntity.itemMaster.itemno}"  styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入品号" readonly="true"/>
+                                    <p:commandButton id="btnItemMasterSelect" actionListener="#{purchaseTransactionManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseTransactionManagedBean.handleDialogReturnItemMasterWhenNew}"
+                                                update="plgBase" />
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
+                                    <p:graphicImage value="/resources/upload/img/#{purchaseTransactionManagedBean.newEntity.itemMaster.img1}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column styleClass="Wid20"><p:outputLabel value="名称" for="itemdesc" /></p:column>
+                                <p:column styleClass="Wid30">
+                                    <h:outputText id="itemdesc" value="#{purchaseTransactionManagedBean.newEntity.itemMaster.itemdesc}" title="itemdesc" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
+                                <p:column>
+                                    <h:outputText id="itemspec"  value="#{purchaseTransactionManagedBean.newEntity.itemMaster.itemspec}" title="itemspec" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="数量" for="qty" /></p:column>
+                                <p:column>
+                                    <p:inputText id="qty" value="#{purchaseTransactionManagedBean.newEntity.qty}" title="qty" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="单位" for="unit" /></p:column>
+                                <p:column>
+                                    <p:inputText id="unit" value="#{purchaseTransactionManagedBean.newEntity.unit}" title="unit" styleClass="inputWithButton"
+                                                 required="true" requiredMessage="请输入单位"/>
+                                    <p:commandButton id="btnUnitSelect" actionListener="#{purchaseTransactionManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink"
+                                                     process="@this" >
+                                        <p:ajax event="dialogReturn" listener="#{purchaseTransactionManagedBean.handleDialogReturnUnitWhenNew}"
+                                                update="unit" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="单价" for="price" /></p:column>
+                                <p:column>
+                                    <p:inputText id="price" value="#{purchaseTransactionManagedBean.newEntity.price}" title="price" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><h:outputText value="小计"/></p:column>
+                                <p:column>
+                                    <h:outputText id="amts" value="#{purchaseTransactionManagedBean.newEntity.amts}" title="amts" />
+                                </p:column>
+                                <p:column><h:outputText value="已付"/></p:column>
+                                <p:column>
+                                    <h:outputText id="payamt" value="#{purchaseTransactionManagedBean.newEntity.payamt}" title="payamt" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column><p:outputLabel value="备注" for="remark" /></p:column>
+                                <p:column colspan="3">
+                                    <p:inputText id="remark" value="#{purchaseTransactionManagedBean.newEntity.remark}" title="Remark" />
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:tab>
+            </p:tabView>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <p:blockUI id="blockUI" block="formNew" trigger="btnSave">
+                <p:graphicImage name="images/ajaxloadingbar.gif" library="sentinel-layout"/>
+            </p:blockUI>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
