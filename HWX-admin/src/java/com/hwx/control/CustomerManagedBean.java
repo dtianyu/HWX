@@ -95,11 +95,8 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
     @Override
     public void init() {
         this.superEJB = customerBean;
-        this.detailEJB = customerContacterBean;
         setModel(new CustomerModel(customerBean));
-        if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
-            this.model.getFilterFields().put("creator", userManagedBean.getCurrentUser().getUsername());
-        }
+        this.detailEJB = customerContacterBean;
         super.init();
     }
 
@@ -113,17 +110,6 @@ public class CustomerManagedBean extends SuperMultiBean<Customer, CustomerContac
             if (queryName != null && !"".equals(queryName)) {
                 this.model.getFilterFields().put("customer", queryName);
             }
-            if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
-                this.model.getFilterFields().put("creator", userManagedBean.getCurrentUser().getUsername());
-            }
-        }
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        if (userManagedBean != null && !userManagedBean.getCurrentUser().getSuperuser()) {
-            this.model.getFilterFields().put("creator", userManagedBean.getCurrentUser().getUsername());
         }
     }
 

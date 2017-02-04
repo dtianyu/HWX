@@ -6,15 +6,11 @@
 package com.hwx.entity;
 
 import com.lightshell.comm.SuperEntity;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -164,55 +160,8 @@ public class Customer extends SuperEntity {
     @Size(max = 200)
     @Column(name = "remark")
     private String remark;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
-    @Column(name = "status")
-    private String status;
-    @Size(max = 20)
-    @Column(name = "creator")
-    private String creator;
-    @Column(name = "credate")
-    @Temporal(TemporalType.DATE)
-    private Date credate;
-    @Size(max = 20)
-    @Column(name = "optuser")
-    private String optuser;
-    @Column(name = "optdate")
-    @Temporal(TemporalType.DATE)
-    private Date optdate;
-    @Size(max = 20)
-    @Column(name = "cfmuser")
-    private String cfmuser;
-    @Column(name = "cfmdate")
-    @Temporal(TemporalType.DATE)
-    private Date cfmdate;
 
     public Customer() {
-    }
-
-    public Customer(Integer id) {
-        this.id = id;
-    }
-
-    public Customer(Integer id, String customerno, String customer, String fullname, String currency, String taxtype, String taxkind, BigDecimal taxrate, String status) {
-        this.id = id;
-        this.customerno = customerno;
-        this.customer = customer;
-        this.fullname = fullname;
-        this.currency = currency;
-        this.taxtype = taxtype;
-        this.taxkind = taxkind;
-        this.taxrate = taxrate;
-        this.status = status;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCustomerno() {
@@ -509,62 +458,6 @@ public class Customer extends SuperEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
-
-    public Date getCredate() {
-        return credate;
-    }
-
-    public void setCredate(Date credate) {
-        this.credate = credate;
-    }
-
-    public String getOptuser() {
-        return optuser;
-    }
-
-    public void setOptuser(String optuser) {
-        this.optuser = optuser;
-    }
-
-    public Date getOptdate() {
-        return optdate;
-    }
-
-    public void setOptdate(Date optdate) {
-        this.optdate = optdate;
-    }
-
-    public String getCfmuser() {
-        return cfmuser;
-    }
-
-    public void setCfmuser(String cfmuser) {
-        this.cfmuser = cfmuser;
-    }
-
-    public Date getCfmdate() {
-        return cfmdate;
-    }
-
-    public void setCfmdate(Date cfmdate) {
-        this.cfmdate = cfmdate;
     }
 
     @Override

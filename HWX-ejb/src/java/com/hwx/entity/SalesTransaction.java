@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "SalesTransaction.findByFormtype", query = "SELECT s FROM SalesTransaction s WHERE s.formtype = :formtype")
     , @NamedQuery(name = "SalesTransaction.findByFormkind", query = "SELECT s FROM SalesTransaction s WHERE s.formkind = :formkind")
     , @NamedQuery(name = "SalesTransaction.findByAbroad", query = "SELECT s FROM SalesTransaction s WHERE s.abroad = :abroad")
-    , @NamedQuery(name = "SalesTransaction.findByCustomerid", query = "SELECT s FROM SalesTransaction s WHERE s.customerid = :customerid")
+    , @NamedQuery(name = "SalesTransaction.findByCustomerId", query = "SELECT s FROM SalesTransaction s WHERE s.customer.id = :customerid")
     , @NamedQuery(name = "SalesTransaction.findByPId", query = "SELECT s FROM SalesTransaction s WHERE s.pid = :pid")
     , @NamedQuery(name = "SalesTransaction.findByStatus", query = "SELECT s FROM SalesTransaction s WHERE s.status = :status")})
 public class SalesTransaction extends FormEntity {

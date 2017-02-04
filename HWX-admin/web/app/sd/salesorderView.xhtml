@@ -30,7 +30,7 @@
             <p:panel id="panelHead" header="外卖登记－查看">
                 <p:panelGrid id="plgHead" styleClass="plgHead Wid100">
                     <p:row>
-                        <p:column styleClass="Wid20"><h:outputText value="编号"/></p:column>
+                        <p:column styleClass="Wid20"><h:outputText value="外卖编号"/></p:column>
                         <p:column styleClass="Wid30">
                             <h:outputText id="formid" value="#{salesTransactionManagedBean.currentEntity.formid}" title="Formid"/>
                         </p:column>
@@ -42,35 +42,9 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><h:outputText value="外卖类型"/></p:column>
-                        <p:column>
-                            <p:selectOneMenu id="purtype" value="#{salesTransactionManagedBean.currentEntity.purtype}" title="purtype"
-                                             required="true" requiredMessage="请输入外卖类型" disabled="true">
-                                <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItem itemLabel="成品" itemValue="100" />
-                                <f:selectItem itemLabel="半成品" itemValue="200" />
-                                <f:selectItem itemLabel="原料" itemValue="300" />
-                            </p:selectOneMenu>
-                        </p:column>
                         <p:column><h:outputText value="客户"/></p:column>
                         <p:column>
                             <h:outputText id="customer" value="#{salesTransactionManagedBean.currentEntity.customer.customer}" title="customer" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="币别"/></p:column>
-                        <p:column>
-                            <h:outputText id="currency" value="#{salesTransactionManagedBean.currentEntity.currency}" title="Currency" />
-                        </p:column>
-                        <p:column><h:outputText value="汇率"/></p:column>
-                        <p:column>
-                            <h:outputText id="exchange" value="#{salesTransactionManagedBean.currentEntity.exchange}" title="Exchange" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="付款方式" /></p:column>
-                        <p:column>
-                            <h:outputText id="paykind" value="#{salesTransactionManagedBean.currentEntity.paykind}" title="Paykind" />
                         </p:column>
                         <p:column><h:outputText value="付款条件"/></p:column>
                         <p:column>
@@ -84,24 +58,13 @@
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
                             <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="品号" /></p:column>
+                                <p:column styleClass="Wid20"><h:outputText value="外卖类型"/></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="itemmaster" value="#{salesTransactionManagedBean.currentEntity.itemMaster.itemno}" />
+                                    <h:outputText id="formkind" value="#{salesTransactionManagedBean.currentEntity.formkind}" title="formkind"/>
                                 </p:column>
-                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
-                                    <p:graphicImage value="/resources/upload/img/#{salesTransactionManagedBean.currentEntity.itemMaster.img1}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><h:outputText value="名称" /></p:column>
-                                <p:column styleClass="Wid30">
-                                    <h:outputText id="itemdesc" value="#{salesTransactionManagedBean.currentEntity.itemMaster.itemdesc}" title="itemdesc" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><h:outputText value="规格" /></p:column>
+                                <p:column><h:outputText value="单位"/></p:column>
                                 <p:column>
-                                    <h:outputText id="itemspec"  value="#{salesTransactionManagedBean.currentEntity.itemMaster.itemspec}" title="itemspec" />
+                                    <h:outputText id="unit" value="#{salesTransactionManagedBean.currentEntity.unit}" title="unit" />
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -109,14 +72,6 @@
                                 <p:column>
                                     <h:outputText id="qty" value="#{salesTransactionManagedBean.currentEntity.qty}" title="qty" />
                                 </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><h:outputText value="单位"/></p:column>
-                                <p:column>
-                                    <h:outputText id="unit" value="#{salesTransactionManagedBean.currentEntity.unit}" title="unit" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
                                 <p:column><h:outputText value="单价"/></p:column>
                                 <p:column>
                                     <h:outputText id="price" value="#{salesTransactionManagedBean.currentEntity.price}" title="price" />
@@ -127,9 +82,9 @@
                                 <p:column>
                                     <h:outputText id="amts" value="#{salesTransactionManagedBean.currentEntity.amts}" title="amts" />
                                 </p:column>
-                                <p:column><h:outputText value="已付"/></p:column>
+                                <p:column><h:outputText value="已收"/></p:column>
                                 <p:column>
-                                    <h:outputText id="payamt" value="#{salesTransactionManagedBean.currentEntity.payamt}" title="payamt" />
+                                    <h:outputText id="recamt" value="#{salesTransactionManagedBean.currentEntity.recamt}" title="recamt" />
                                 </p:column>
                             </p:row>
                             <p:row>

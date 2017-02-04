@@ -6,6 +6,7 @@
 package com.hwx.control;
 
 import com.hwx.ejb.DepartmentBean;
+import com.hwx.ejb.SalesKindBean;
 import com.hwx.ejb.SalesTransactionBean;
 import com.hwx.ejb.SystemUserBean;
 import com.hwx.entity.Currency;
@@ -15,6 +16,7 @@ import com.hwx.entity.SalesTransaction;
 import com.hwx.entity.SystemUser;
 import com.hwx.entity.Unit;
 import com.hwx.entity.Customer;
+import com.hwx.entity.SalesKind;
 import com.hwx.lazy.SalesTransactionModel;
 import com.hwx.web.SuperSingleBean;
 import com.lightshell.comm.BaseLib;
@@ -39,12 +41,15 @@ public class SalesTransactionManagedBean extends SuperSingleBean<SalesTransactio
     protected DepartmentBean departmentBean;
     @EJB
     protected SystemUserBean systemUserBean;
-
+    @EJB
+    private SalesKindBean salesKindBean;
     @EJB
     private SalesTransactionBean salesTransactionBean;
 
     private List<SystemUser> systemUserList;
     private List<Department> deptList;
+
+    private List<SalesKind> salesKindList;
 
     private String queryItemno;
 
@@ -64,6 +69,7 @@ public class SalesTransactionManagedBean extends SuperSingleBean<SalesTransactio
         newEntity.setTaxkind("VAT17");
         newEntity.setTaxrate(BigDecimal.valueOf(17));
         newEntity.setQty(BigDecimal.ONE);
+        newEntity.setUnit("份");
         newEntity.setPrice(BigDecimal.ZERO);
         newEntity.setAmts(BigDecimal.ZERO);
     }
@@ -187,6 +193,7 @@ public class SalesTransactionManagedBean extends SuperSingleBean<SalesTransactio
         this.model.getSortFields().put("formid", "DESC");
         setSystemUserList(systemUserBean.findAll());
         setDeptList(departmentBean.findAll());
+        setSalesKindList(salesKindBean.findAll());
         super.init();
     }
 
@@ -301,6 +308,20 @@ public class SalesTransactionManagedBean extends SuperSingleBean<SalesTransactio
      */
     public void setDeptList(List<Department> deptList) {
         this.deptList = deptList;
+    }
+
+    /**
+     * @return the salesKindList
+     */
+    public List<SalesKind> getSalesKindList() {
+        return salesKindList;
+    }
+
+    /**
+     * @param salesKindList the salesKindList to set
+     */
+    public void setSalesKindList(List<SalesKind> salesKindList) {
+        this.salesKindList = salesKindList;
     }
 
 }

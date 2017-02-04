@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/kevindong/GitHub/HWX/HWX-admin/web/app/lm/purchasekindEdit.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HWX/HWX-admin/web/app/lm/purchasekindView.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HWX/HWX-admin/web/app/lm/purchasekind.xhtml</file>
-            <file>file:/Users/kevindong/GitHub/HWX/HWX-admin/web/app/lm/purchasekindNew.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HWX/HWX-admin/web/sys/systemroleNew.xhtml</file>
+            <file>file:/Users/kevindong/GitHub/HWX/HWX-admin/web/sys/systemroleEdit.xhtml</file>
         </group>
     </open-files>
 </project-private>

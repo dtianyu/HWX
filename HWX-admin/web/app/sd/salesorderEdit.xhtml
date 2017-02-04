@@ -42,64 +42,15 @@
                         </p:column>
                     </p:row>
                     <p:row>
-                        <p:column><p:outputLabel value="外卖类型" for="purtype" /></p:column>
-                        <p:column>
-                            <p:selectOneMenu id="purtype" value="#{salesTransactionManagedBean.currentEntity.purtype}" title="purtype"
-                                             required="true" requiredMessage="请输入外卖类型" disabled="true">
-                                <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItem itemLabel="成品" itemValue="100" />
-                                <f:selectItem itemLabel="半成品" itemValue="200" />
-                                <f:selectItem itemLabel="原料" itemValue="300" />
-                            </p:selectOneMenu>
-                        </p:column>
                         <p:column><p:outputLabel value="客户" for="customer" /></p:column>
                         <p:column>
                             <p:inputText id="customer" value="#{salesTransactionManagedBean.currentEntity.customer.customer}" title="customer"  styleClass="inputWithButton"
                                          required="true" requiredMessage="请输入客户" readonly="true"/>
                             <p:commandButton id="btnCustomerSelect" actionListener="#{salesTransactionManagedBean.openDialog('customerSelect')}" icon="ui-icon-extlink"
                                              process="@this,plgHead" >
-                                <p:ajax event="dialogReturn" listener="#{salesTransactionManagedBean.handleDialogReturnWhenEdit}"
+                                <p:ajax event="dialogReturn" listener="#{salesTransactionManagedBean.handleDialogReturnWhenNew}"
                                         update="plgHead,:formEdit:tabView:plgBase" />
                             </p:commandButton>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><p:outputLabel value="币别" for="currency" /></p:column>
-                        <p:column>
-                            <p:inputText id="currency" value="#{salesTransactionManagedBean.currentEntity.currency}" title="Currency" styleClass="inputWithButton"
-                                         required="true" requiredMessage="请输入币别"/>
-                            <p:commandButton id="btnCurrencySelect" actionListener="#{salesTransactionManagedBean.openDialog('currencySelect')}" icon="ui-icon-extlink"
-                                             process="@this" >
-                                <p:ajax event="dialogReturn" listener="#{salesTransactionManagedBean.handleDialogReturnCurrencyWhenEdit}"
-                                        update="plgHead" />
-                            </p:commandButton>
-                        </p:column>
-                        <p:column><p:outputLabel value="汇率" for="exchange" /></p:column>
-                        <p:column>
-                            <p:inputText id="exchange" value="#{salesTransactionManagedBean.currentEntity.exchange}" title="Exchange"
-                                         required="true" requiredMessage="请输入汇率"/>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><h:outputText value="税别"/></p:column>
-                        <p:column>
-                            <p:selectOneMenu id="taxtype" value="#{salesTransactionManagedBean.currentEntity.taxtype}" title="Taxtype"
-                                             required="true" requiredMessage="请输入税别" disabled="true">
-                                <f:selectItem itemLabel="内含" itemValue="0" />
-                                <f:selectItem itemLabel="外加" itemValue="1" />
-                                <f:selectItem itemLabel="零税" itemValue="2" />
-                                <f:selectItem itemLabel="免税" itemValue="3" />
-                            </p:selectOneMenu>
-                        </p:column>
-                        <p:column styleClass="Wid20"><h:outputText value="税率" /></p:column>
-                        <p:column styleClass="Wid30">
-                            <h:outputText id="taxrate" value="#{salesTransactionManagedBean.currentEntity.taxrate}" title="taxrate" />
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><p:outputLabel value="付款方式" for="paykind" /></p:column>
-                        <p:column>
-                            <p:inputText id="paykind" value="#{salesTransactionManagedBean.currentEntity.paykind}" title="Paykind" />
                         </p:column>
                         <p:column><p:outputLabel value="付款条件" for="payment" /></p:column>
                         <p:column>
@@ -113,41 +64,16 @@
                     <p:panel id="panelBase">
                         <p:panelGrid id="plgBase" styleClass="plgBase Wid100">
                             <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="品号" for="itemmaster" /></p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="外卖类型" for="formkind" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <p:inputText id="itemmaster" value="#{salesTransactionManagedBean.currentEntity.itemMaster.itemno}"  styleClass="inputWithButton"
-                                                 required="true" requiredMessage="请输入品号" readonly="true"/>
-                                    <p:commandButton id="btnItemMasterSelect" actionListener="#{salesTransactionManagedBean.openDialog('itemmasterSelect')}" icon="ui-icon-extlink"
-                                                     process="@this" >
-                                        <p:ajax event="dialogReturn" listener="#{salesTransactionManagedBean.handleDialogReturnItemMasterWhenNew}"
-                                                update="plgBase" />
-                                    </p:commandButton>
+                                    <p:selectOneMenu id="formkind" value="#{salesTransactionManagedBean.currentEntity.formkind}" title="formkind"
+                                                     required="true" requiredMessage="请输入外卖类型">
+                                        <f:selectItem itemLabel="Select One" itemValue="" />
+                                        <f:selectItems value="#{salesTransactionManagedBean.salesKindList}" var="k" itemLabel="#{k.name}" itemValue="#{k.name}"/>
+                                    </p:selectOneMenu>
                                 </p:column>
-                                <p:column rowspan="6" colspan="2" styleClass="Wid50">
-                                    <p:graphicImage value="/resources/upload/img/#{salesTransactionManagedBean.currentEntity.itemMaster.img1}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column styleClass="Wid20"><p:outputLabel value="名称" for="itemdesc" /></p:column>
+                                <p:column styleClass="Wid20"><p:outputLabel value="单位" for="unit" /></p:column>
                                 <p:column styleClass="Wid30">
-                                    <h:outputText id="itemdesc" value="#{salesTransactionManagedBean.currentEntity.itemMaster.itemdesc}" title="itemdesc" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="规格" for="itemspec" /></p:column>
-                                <p:column>
-                                    <h:outputText id="itemspec"  value="#{salesTransactionManagedBean.currentEntity.itemMaster.itemspec}" title="itemspec" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="数量" for="qty" /></p:column>
-                                <p:column>
-                                    <p:inputText id="qty" value="#{salesTransactionManagedBean.currentEntity.qty}" title="qty" />
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column><p:outputLabel value="单位" for="unit" /></p:column>
-                                <p:column>
                                     <p:inputText id="unit" value="#{salesTransactionManagedBean.currentEntity.unit}" title="unit" styleClass="inputWithButton"
                                                  required="true" requiredMessage="请输入单位"/>
                                     <p:commandButton id="btnUnitSelect" actionListener="#{salesTransactionManagedBean.openDialog('unitSelect')}" icon="ui-icon-extlink"
@@ -158,6 +84,10 @@
                                 </p:column>
                             </p:row>
                             <p:row>
+                                <p:column><p:outputLabel value="数量" for="qty" /></p:column>
+                                <p:column>
+                                    <p:inputText id="qty" value="#{salesTransactionManagedBean.currentEntity.qty}" title="qty" />
+                                </p:column>
                                 <p:column><p:outputLabel value="单价" for="price" /></p:column>
                                 <p:column>
                                     <p:inputText id="price" value="#{salesTransactionManagedBean.currentEntity.price}" title="price" />
@@ -168,9 +98,9 @@
                                 <p:column>
                                     <h:outputText id="amts" value="#{salesTransactionManagedBean.currentEntity.amts}" title="amts" />
                                 </p:column>
-                                <p:column><h:outputText value="已付"/></p:column>
+                                <p:column><h:outputText value="已收"/></p:column>
                                 <p:column>
-                                    <h:outputText id="payamt" value="#{salesTransactionManagedBean.currentEntity.payamt}" title="payamt" />
+                                    <h:outputText id="recamt" value="#{salesTransactionManagedBean.currentEntity.recamt}" title="recamt" />
                                 </p:column>
                             </p:row>
                             <p:row>

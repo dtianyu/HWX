@@ -1,2 +1,6 @@
+build/
+dist/
+HWX-admin/build/
+HWX-admin/dist/
 HWX-admin/web/resources/primefaces-sentinel/
 HWX-admin/web/resources/sentinel-layout/

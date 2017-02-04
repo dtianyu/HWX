@@ -26,14 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CustomerContacter.findAll", query = "SELECT c FROM CustomerContacter c")
     , @NamedQuery(name = "CustomerContacter.findById", query = "SELECT c FROM CustomerContacter c WHERE c.id = :id")
-    , @NamedQuery(name = "CustomerContacter.findByPid", query = "SELECT c FROM CustomerContacter c WHERE c.pid = :pid")
-    , @NamedQuery(name = "CustomerContacter.findBySeq", query = "SELECT c FROM CustomerContacter c WHERE c.seq = :seq")
-    , @NamedQuery(name = "CustomerContacter.findByContacter", query = "SELECT c FROM CustomerContacter c WHERE c.contacter = :contacter")
-    , @NamedQuery(name = "CustomerContacter.findByTel", query = "SELECT c FROM CustomerContacter c WHERE c.tel = :tel")
-    , @NamedQuery(name = "CustomerContacter.findByFax", query = "SELECT c FROM CustomerContacter c WHERE c.fax = :fax")
-    , @NamedQuery(name = "CustomerContacter.findByMobile", query = "SELECT c FROM CustomerContacter c WHERE c.mobile = :mobile")
-    , @NamedQuery(name = "CustomerContacter.findByMail", query = "SELECT c FROM CustomerContacter c WHERE c.mail = :mail")
-    , @NamedQuery(name = "CustomerContacter.findByMajor", query = "SELECT c FROM CustomerContacter c WHERE c.major = :major")})
+    , @NamedQuery(name = "CustomerContacter.findByPId", query = "SELECT c FROM CustomerContacter c WHERE c.pid = :pid")})
 public class CustomerContacter extends SuperDetailEntity {
 
 
