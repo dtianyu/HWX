@@ -6,11 +6,13 @@
 package com.hwx.web;
 
 import com.hwx.control.UserManagedBean;
+import com.hwx.ejb.SysprgBean;
 import com.hwx.entity.SysGrantPrg;
 import com.lightshell.comm.FormDetailEntity;
 import com.lightshell.comm.FormEntity;
 import com.lightshell.comm.FormMulti2ManagedBean;
 import java.util.HashMap;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -23,6 +25,9 @@ import javax.faces.context.FacesContext;
  * @param <D2>
  */
 public abstract class FormMulti2Bean<T extends FormEntity, D1 extends FormDetailEntity, D2 extends FormDetailEntity> extends FormMulti2ManagedBean<T, D1, D2> {
+
+    @EJB
+    protected SysprgBean sysprgBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
@@ -72,6 +77,7 @@ public abstract class FormMulti2Bean<T extends FormEntity, D1 extends FormDetail
         }
         if (getCurrentPrgGrant() != null) {
             this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
             this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();

@@ -35,7 +35,7 @@
                          rowsPerPageTemplate="15,30,45"  lazy="true"
                          selectionMode="single" selection="#{purchaseKindManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    采购类别
+                    付款类别
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />

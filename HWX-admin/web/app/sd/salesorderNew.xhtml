@@ -28,7 +28,7 @@
                             <p:inputText id="formid" value="#{salesTransactionManagedBean.newEntity.formid}" title="Formid"
                                          required="true" requiredMessage="请输入编号" disabled="#{salesTransactionManagedBean.currentPrgGrant.sysprg.noauto}"/>
                         </p:column>
-                        <p:column styleClass="Wid20"><p:outputLabel value="外卖日期" for="formdate" /></p:column>
+                        <p:column styleClass="Wid20"><p:outputLabel value="日期" for="formdate" /></p:column>
                         <p:column styleClass="Wid30">
                             <p:calendar id="formdate" value="#{salesTransactionManagedBean.newEntity.formdate}" title="Formdate"
                                         pattern="yyyy/MM/dd" required="true" requiredMessage="请输入外卖日期">

@@ -6,12 +6,14 @@
 package com.hwx.web;
 
 import com.hwx.control.UserManagedBean;
+import com.hwx.ejb.SysprgBean;
 import com.hwx.entity.SysGrantPrg;
 import com.lightshell.comm.BaseEntity;
 import com.lightshell.comm.BaseLib;
 import com.lightshell.comm.SuperSingleManagedBean;
 import java.util.HashMap;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
@@ -21,6 +23,9 @@ import javax.faces.context.FacesContext;
  * @param <T>
  */
 public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleManagedBean<T> {
+
+    @EJB
+    protected SysprgBean sysprgBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
@@ -165,6 +170,7 @@ public abstract class SuperQueryBean<T extends BaseEntity> extends SuperSingleMa
             this.doDel = false;
             this.doCfm = false;
             this.doUnCfm = false;
+            this.doPriv = currentPrgGrant.getDopriv();
             this.doPrt = this.getCurrentPrgGrant().getDoprt();
         }
     }

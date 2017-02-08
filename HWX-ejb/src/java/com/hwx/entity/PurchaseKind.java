@@ -6,6 +6,7 @@
 package com.hwx.entity;
 
 import com.lightshell.comm.SuperEntity;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -128,6 +129,9 @@ public class PurchaseKind extends SuperEntity {
             return false;
         }
         PurchaseKind other = (PurchaseKind) object;
+        if (Objects.equals(this.purkind, other.purkind)) {
+            return true;
+        }
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

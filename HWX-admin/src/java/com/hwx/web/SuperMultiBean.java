@@ -7,10 +7,12 @@ package com.hwx.web;
 
 import com.lightshell.comm.SuperEntity;
 import com.hwx.control.UserManagedBean;
+import com.hwx.ejb.SysprgBean;
 import com.hwx.entity.SysGrantPrg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMultiManagedBean;
 import java.util.HashMap;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -22,6 +24,9 @@ import javax.faces.context.FacesContext;
  * @param <D1>
  */
 public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDetailEntity> extends SuperMultiManagedBean<T, D1> {
+
+    @EJB
+    protected SysprgBean sysprgBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
@@ -69,6 +74,7 @@ public abstract class SuperMultiBean<T extends SuperEntity, D1 extends SuperDeta
         }
         if (getCurrentPrgGrant() != null) {
             this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
             this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();

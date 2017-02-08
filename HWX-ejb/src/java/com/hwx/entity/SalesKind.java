@@ -6,6 +6,7 @@
 package com.hwx.entity;
 
 import com.lightshell.comm.SuperEntity;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -86,6 +87,9 @@ public class SalesKind extends SuperEntity {
             return false;
         }
         SalesKind other = (SalesKind) object;
+        if (Objects.equals(this.saleskind, other.saleskind)) {
+            return true;
+        }
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

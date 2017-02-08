@@ -7,9 +7,11 @@ package com.hwx.web;
 
 import com.lightshell.comm.SuperEntity;
 import com.hwx.control.UserManagedBean;
+import com.hwx.ejb.SysprgBean;
 import com.hwx.entity.SysGrantPrg;
 import com.lightshell.comm.SuperSingleManagedBean;
 import java.util.HashMap;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
@@ -19,6 +21,9 @@ import javax.faces.context.FacesContext;
  * @param <T>
  */
 public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingleManagedBean<T> {
+
+    @EJB
+    protected SysprgBean sysprgBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
@@ -64,6 +69,7 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
         }
         if (getCurrentPrgGrant() != null) {
             this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
             this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();
@@ -154,8 +160,8 @@ public abstract class SuperSingleBean<T extends SuperEntity> extends SuperSingle
         if (currentEntity != null && getCurrentPrgGrant() != null && currentEntity.getStatus() != null) {
             switch (currentEntity.getStatus()) {
                 case "V":
-                    this.doEdit = getCurrentPrgGrant().getDoedit() && false;
-                    this.doDel = getCurrentPrgGrant().getDodel() && false;
+                    this.doEdit = false;
+                    this.doDel = false;
                     this.doCfm = false;
                     this.doUnCfm = getCurrentPrgGrant().getDouncfm() && true;
                     break;

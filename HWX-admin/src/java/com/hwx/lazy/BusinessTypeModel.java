@@ -5,7 +5,7 @@
  */
 package com.hwx.lazy;
 
-import com.hwx.entity.CurrencyTransaction;
+import com.hwx.entity.BusinessType;
 import com.lightshell.comm.BaseLazyModel;
 import com.lightshell.comm.SuperEJB;
 
@@ -13,9 +13,9 @@ import com.lightshell.comm.SuperEJB;
  *
  * @author kevindong
  */
-public class CurrencyTransactionModel extends BaseLazyModel<CurrencyTransaction>{
+public class BusinessTypeModel extends BaseLazyModel<BusinessType>{
     
-    public CurrencyTransactionModel(SuperEJB superEJB){
+    public BusinessTypeModel(SuperEJB superEJB){
         this.superEJB = superEJB;
     }
     

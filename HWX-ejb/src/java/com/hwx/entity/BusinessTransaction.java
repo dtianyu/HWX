@@ -6,20 +6,15 @@
 package com.hwx.entity;
 
 import com.lightshell.comm.FormEntity;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,22 +24,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author kevindong
  */
 @Entity
-@Table(name = "currencytransaction")
+@Table(name = "businesstransaction")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CurrencyTransaction.findAll", query = "SELECT c FROM CurrencyTransaction c")
-    , @NamedQuery(name = "CurrencyTransaction.findById", query = "SELECT c FROM CurrencyTransaction c WHERE c.id = :id")
-    , @NamedQuery(name = "CurrencyTransaction.findByFormid", query = "SELECT c FROM CurrencyTransaction c WHERE c.formid = :formid")
-    , @NamedQuery(name = "CurrencyTransaction.findByFormdate", query = "SELECT c FROM CurrencyTransaction c WHERE c.formdate = :formdate")
-    , @NamedQuery(name = "CurrencyTransaction.findByFormtype", query = "SELECT c FROM CurrencyTransaction c WHERE c.formtype = :formtype")
-    , @NamedQuery(name = "CurrencyTransaction.findByFormkind", query = "SELECT c FROM CurrencyTransaction c WHERE c.formkind = :formkind")
-    , @NamedQuery(name = "CurrencyTransaction.findByUsername", query = "SELECT c FROM CurrencyTransaction c WHERE c.username = :username")
-    , @NamedQuery(name = "CurrencyTransaction.findByCurrency", query = "SELECT c FROM CurrencyTransaction c WHERE c.currency = :currency")
-    , @NamedQuery(name = "CurrencyTransaction.findByExchange", query = "SELECT c FROM CurrencyTransaction c WHERE c.exchange = :exchange")
-    , @NamedQuery(name = "CurrencyTransaction.findByPayment", query = "SELECT c FROM CurrencyTransaction c WHERE c.payment = :payment")
-    , @NamedQuery(name = "CurrencyTransaction.findBySummary", query = "SELECT c FROM CurrencyTransaction c WHERE c.summary = :summary")
-    , @NamedQuery(name = "CurrencyTransaction.findByStatus", query = "SELECT c FROM CurrencyTransaction c WHERE c.status = :status")})
-public class CurrencyTransaction extends FormEntity {
+    @NamedQuery(name = "BusinessTransaction.findAll", query = "SELECT c FROM BusinessTransaction c")
+    , @NamedQuery(name = "BusinessTransaction.findById", query = "SELECT c FROM BusinessTransaction c WHERE c.id = :id")
+    , @NamedQuery(name = "BusinessTransaction.findByFormid", query = "SELECT c FROM BusinessTransaction c WHERE c.formid = :formid")
+    , @NamedQuery(name = "BusinessTransaction.findByFormdate", query = "SELECT c FROM BusinessTransaction c WHERE c.formdate = :formdate")
+    , @NamedQuery(name = "BusinessTransaction.findByFormtype", query = "SELECT c FROM BusinessTransaction c WHERE c.formtype = :formtype")
+    , @NamedQuery(name = "BusinessTransaction.findByFormkind", query = "SELECT c FROM BusinessTransaction c WHERE c.formkind = :formkind")
+    , @NamedQuery(name = "BusinessTransaction.findByUsername", query = "SELECT c FROM BusinessTransaction c WHERE c.username = :username")
+    , @NamedQuery(name = "BusinessTransaction.findByCurrency", query = "SELECT c FROM BusinessTransaction c WHERE c.currency = :currency")
+    , @NamedQuery(name = "BusinessTransaction.findByExchange", query = "SELECT c FROM BusinessTransaction c WHERE c.exchange = :exchange")
+    , @NamedQuery(name = "BusinessTransaction.findByPayment", query = "SELECT c FROM BusinessTransaction c WHERE c.payment = :payment")
+    , @NamedQuery(name = "BusinessTransaction.findBySummary", query = "SELECT c FROM BusinessTransaction c WHERE c.summary = :summary")
+    , @NamedQuery(name = "BusinessTransaction.findByStatus", query = "SELECT c FROM BusinessTransaction c WHERE c.status = :status")})
+public class BusinessTransaction extends FormEntity {
+
+    @JoinColumn(name = "paykind", referencedColumnName = "paykind")
+    @ManyToOne(optional = true)
+    private PayKind payKind;
 
     @Basic(optional = false)
     @NotNull
@@ -67,8 +66,6 @@ public class CurrencyTransaction extends FormEntity {
     @NotNull
     @Column(name = "exchange")
     private BigDecimal exchange;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 45)
     @Column(name = "payment")
     private String payment;
@@ -98,7 +95,7 @@ public class CurrencyTransaction extends FormEntity {
     @Column(name = "remark")
     private String remark;
 
-    public CurrencyTransaction() {
+    public BusinessTransaction() {
     }
 
     public String getFormtype() {
@@ -147,6 +144,20 @@ public class CurrencyTransaction extends FormEntity {
 
     public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    /**
+     * @return the payKind
+     */
+    public PayKind getPayKind() {
+        return payKind;
+    }
+
+    /**
+     * @param payKind the payKind to set
+     */
+    public void setPayKind(PayKind payKind) {
+        this.payKind = payKind;
     }
 
     public String getSummary() {
@@ -223,10 +234,10 @@ public class CurrencyTransaction extends FormEntity {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CurrencyTransaction)) {
+        if (!(object instanceof BusinessTransaction)) {
             return false;
         }
-        CurrencyTransaction other = (CurrencyTransaction) object;
+        BusinessTransaction other = (BusinessTransaction) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -235,7 +246,7 @@ public class CurrencyTransaction extends FormEntity {
 
     @Override
     public String toString() {
-        return "com.hwx.entity.CurrencyTransaction[ id=" + id + " ]";
+        return "com.hwx.entity.BusinessTransaction[ id=" + id + " ]";
     }
 
 }

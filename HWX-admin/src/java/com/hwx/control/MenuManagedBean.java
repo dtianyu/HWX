@@ -100,8 +100,8 @@ public class MenuManagedBean implements Serializable {
                 if (userModuleGrantList.isEmpty()) {
                     moduleGrantList.addAll(roleModuleGrantList);
                 } else {
-                    flag = true;
                     for (SysGrantModule m : roleModuleGrantList) {
+                        flag = true;
                         for (SysGrantModule e : userModuleGrantList) {
                             if (e.getSysmodule().getId().compareTo(m.getSysmodule().getId()) == 0) {
                                 flag = false;
@@ -117,8 +117,8 @@ public class MenuManagedBean implements Serializable {
                 if (userPrgGrantList.isEmpty()) {
                     prgGrantList.addAll(rolePrgGrantList);
                 } else {
-                    flag = true;
                     for (SysGrantPrg p : rolePrgGrantList) {
+                        flag = true;
                         for (SysGrantPrg e : userPrgGrantList) {
                             if (e.getSysprg().getId().compareTo(p.getSysprg().getId()) == 0) {
                                 flag = false;

@@ -70,6 +70,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>biztype</from-outcome>
+            <to-view-id>/app/sys/biztype.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>currency</from-outcome>
             <to-view-id>/app/sys/currency.xhtml</to-view-id>
             <redirect/>
@@ -115,6 +120,24 @@
         <navigation-case>
             <from-outcome>areaView</from-outcome>
             <to-view-id>/app/sys/areaView.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/app/sys/biztype.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>biztypeNew</from-outcome>
+            <to-view-id>/app/sys/biztypeNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>biztypeEdit</from-outcome>
+            <to-view-id>/app/sys/biztypeEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>biztypeView</from-outcome>
+            <to-view-id>/app/sys/biztypeView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -289,6 +312,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>purchasekind</from-outcome>
+            <to-view-id>/app/lm/purchasekind.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>purchaseorder</from-outcome>
             <to-view-id>/app/lm/purchaseorder.xhtml</to-view-id>
             <redirect/>
@@ -301,6 +329,25 @@
         <navigation-case>
             <from-outcome>vendor</from-outcome>
             <to-view-id>/app/lm/vendor.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <description>日常开支</description>
+        <from-view-id>/app/lm/dailyout.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>dailyoutNew</from-outcome>
+            <to-view-id>/app/lm/dailyoutNew.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dailyoutEdit</from-outcome>
+            <to-view-id>/app/lm/dailyoutEdit.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>dailyoutView</from-outcome>
+            <to-view-id>/app/lm/dailyoutView.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

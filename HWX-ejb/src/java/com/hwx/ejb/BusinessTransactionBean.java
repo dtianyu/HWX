@@ -6,10 +6,9 @@
 package com.hwx.ejb;
 
 import com.hwx.comm.SuperBean;
-import com.hwx.entity.CurrencyTransaction;
+import com.hwx.entity.BusinessTransaction;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import javax.persistence.Query;
 
 /**
  *
@@ -17,10 +16,10 @@ import javax.persistence.Query;
  */
 @Stateless
 @LocalBean
-public class CurrencyTransactionBean extends SuperBean<CurrencyTransaction> {
+public class BusinessTransactionBean extends SuperBean<BusinessTransaction> {
 
-    public CurrencyTransactionBean() {
-        super(CurrencyTransaction.class);
+    public BusinessTransactionBean() {
+        super(BusinessTransaction.class);
     }
 
 }

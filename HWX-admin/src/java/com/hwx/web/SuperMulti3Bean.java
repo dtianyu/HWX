@@ -8,7 +8,7 @@ package com.hwx.web;
 import com.lightshell.comm.SuperEntity;
 import com.hwx.control.UserManagedBean;
 import com.hwx.ejb.SysprgBean;
-import com.hwx.entity.Sysprg;
+import com.hwx.entity.SysGrantPrg;
 import com.lightshell.comm.SuperDetailEntity;
 import com.lightshell.comm.SuperMulti3ManagedBean;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, D1 extends SuperDet
     protected String persistenceUnitName;
     protected String appDataPath;
     protected String appImgPath;
-    protected Sysprg currentPrgGrant;
+    protected SysGrantPrg currentPrgGrant;
 
     /**
      * @param entityClass
@@ -73,9 +73,14 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, D1 extends SuperDet
         persistenceUnitName = fc.getExternalContext().getInitParameter("com.hwx.jpa.unitname");
         int beginIndex = fc.getViewRoot().getViewId().lastIndexOf("/") + 1;
         int endIndex = fc.getViewRoot().getViewId().lastIndexOf(".");
-        currentPrgGrant = sysprgBean.findByAPI(fc.getViewRoot().getViewId().substring(beginIndex, endIndex));
+        if (userManagedBean.getSysGrantPrgList() != null && !userManagedBean.getSysGrantPrgList().isEmpty()) {
+            userManagedBean.getSysGrantPrgList().stream().filter((p) -> (p.getSysprg().getApi().equals(fc.getViewRoot().getViewId().substring(beginIndex, endIndex)))).forEachOrdered((p) -> {
+                currentPrgGrant = p;
+            });
+        }
         if (getCurrentPrgGrant() != null) {
             this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
             this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();
@@ -121,20 +126,20 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, D1 extends SuperDet
         HashMap<String, Object> params = new HashMap<>();
         params.put("id", currentEntity.getId());
         params.put("pid", currentEntity.getId());
-        params.put("JNDIName", this.currentPrgGrant.getRptjndi());
+        params.put("JNDIName", this.currentPrgGrant.getSysprg().getRptjndi());
         //设置报表名称
         String reportFormat;
-        if (this.currentPrgGrant.getRptformat() != null) {
-            reportFormat = this.currentPrgGrant.getRptformat();
+        if (this.currentPrgGrant.getSysprg().getRptformat() != null) {
+            reportFormat = this.currentPrgGrant.getSysprg().getRptformat();
         } else {
             reportFormat = reportOutputFormat;
         }
-        String reportName = reportPath + this.currentPrgGrant.getRptdesign();
+        String reportName = reportPath + this.currentPrgGrant.getSysprg().getRptdesign();
         String outputName = reportOutputPath + currentEntity.getId() + "." + reportFormat;
         this.reportViewPath = reportViewContext + currentEntity.getId() + "." + reportFormat;
         try {
-            if (this.currentPrgGrant != null && this.currentPrgGrant.getRptclazz() != null) {
-                reportClassLoader = Class.forName(this.currentPrgGrant.getRptclazz()).getClassLoader();
+            if (this.currentPrgGrant != null && this.currentPrgGrant.getSysprg().getRptclazz() != null) {
+                reportClassLoader = Class.forName(this.currentPrgGrant.getSysprg().getRptclazz()).getClassLoader();
             }
             //初始配置
             this.reportInitAndConfig();
@@ -249,7 +254,7 @@ public abstract class SuperMulti3Bean<T extends SuperEntity, D1 extends SuperDet
     /**
      * @return the currentPrgGrant
      */
-    public Sysprg getCurrentPrgGrant() {
+    public SysGrantPrg getCurrentPrgGrant() {
         return currentPrgGrant;
     }
 

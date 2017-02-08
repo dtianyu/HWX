@@ -24,7 +24,7 @@
                     <p:inputText id="userid" value="#{systemUserManagedBean.mobile}" placeholder="手机" styleClass ="Wid90" required="true" 
                                  requiredMessage="请输入手机号" >
                         <f:validateRegex pattern="^1[3|4|5|8][0-9]{9,9}$"  />
-                        <f:validator validatorId="com.hhsc.validator.UserId"/>
+                        <f:validator validatorId="com.hwx.validator.UserId"/>
                     </p:inputText>
                     <p:message for="userid"/>
                     <h:outputText value="姓名"/>
@@ -33,7 +33,7 @@
                     <h:outputText value="邮箱"/>                    
                     <p:inputText id="mail" value="#{systemUserManagedBean.mail}" placeholder="邮箱" styleClass ="Wid90"  required="true" 
                                  requiredMessage="请输入邮箱">
-                        <f:validator validatorId="com.hhsc.validator.UserMailAdd"/>
+                        <f:validator validatorId="com.hwx.validator.UserMailAdd"/>
                     </p:inputText>
                     <p:message for="mail"/>
                     <h:outputText value="密码"/>

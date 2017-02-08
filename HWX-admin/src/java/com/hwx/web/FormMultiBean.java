@@ -6,11 +6,13 @@
 package com.hwx.web;
 
 import com.hwx.control.UserManagedBean;
+import com.hwx.ejb.SysprgBean;
 import com.hwx.entity.SysGrantPrg;
 import com.lightshell.comm.FormDetailEntity;
 import com.lightshell.comm.FormEntity;
 import com.lightshell.comm.FormMultiManagedBean;
 import java.util.HashMap;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -22,6 +24,9 @@ import javax.faces.context.FacesContext;
  * @param <D1>
  */
 public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailEntity> extends FormMultiManagedBean<T, D1> {
+
+    @EJB
+    protected SysprgBean sysprgBean;
 
     @ManagedProperty(value = "#{userManagedBean}")
     protected UserManagedBean userManagedBean;
@@ -69,6 +74,7 @@ public abstract class FormMultiBean<T extends FormEntity, D1 extends FormDetailE
         }
         if (getCurrentPrgGrant() != null) {
             this.doAdd = getCurrentPrgGrant().getDoadd();
+            this.doPriv = getCurrentPrgGrant().getDopriv();
             this.doPrt = getCurrentPrgGrant().getDoprt();
         }
         super.construct();

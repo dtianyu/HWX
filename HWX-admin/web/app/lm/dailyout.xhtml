@@ -14,86 +14,80 @@
                     查询条件
                 </f:facet>
                 <p:panelGrid id="plgQuery" columns="4" columnClasses="Wid20,Wid30,Wid20,Wid30" styleClass="plgQuery Wid100">
-                    <h:outputLabel value="外卖类型" for="queryItemno" />
-                    <p:inputText id="queryItemno" value="#{salesTransactionManagedBean.queryItemno}" title="品号" />
-                    <h:outputLabel value="客户简称" for="queryName" />
-                    <p:inputText id="queryName" value="#{salesTransactionManagedBean.queryName}" title="客户简称" />
-                    <h:outputLabel value="外卖编号" for="queryFormId" />
-                    <p:inputText id="queryFormId" value="#{salesTransactionManagedBean.queryFormId}" title="外卖编号" />
+                    <h:outputLabel value="摘要" for="queryName" />
+                    <p:inputText id="queryName" value="#{businessOutManagedBean.queryName}" title="摘要" />
                     <h:outputLabel value="状态" for="queryState" />
-                    <p:selectOneMenu id="queryState" value="#{salesTransactionManagedBean.queryState}" title="状态" >
+                    <p:selectOneMenu id="queryState" value="#{businessOutManagedBean.queryState}" title="状态" >
                         <f:selectItem itemLabel="全部" itemValue="ALL"/>
                         <f:selectItem itemLabel="未提交" itemValue="N"/>
                         <f:selectItem itemLabel="已提交" itemValue="V"/>
                     </p:selectOneMenu>
-                    <h:outputLabel value="外卖日期" for="queryDateBegin" />
-                    <p:calendar id="queryDateBegin" value="#{salesTransactionManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
+                    <h:outputLabel value="支出日期" for="queryDateBegin" />
+                    <p:calendar id="queryDateBegin" value="#{businessOutManagedBean.queryDateBegin}" title="开始日期" pattern="yyyy/MM/dd"/>
                     <h:outputLabel value="截止日期" for="queryDateEnd" />
-                    <p:calendar id="queryDateEnd" value="#{salesTransactionManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
+                    <p:calendar id="queryDateEnd" value="#{businessOutManagedBean.queryDateEnd}" title="结束日期" pattern="yyyy/MM/dd"/>
                 </p:panelGrid>
             </p:panel>
             <p:growl id="growl" showSummary="false" showDetail="true" autoUpdate="true"/>
             <p:toolbar id="toolbar" styleClass="topToolbar">
                 <f:facet name="left">
-                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{salesTransactionManagedBean.init()}" icon="ui-icon-search"
+                    <p:commandButton id="btnLoad" value="刷新" actionListener="#{businessOutManagedBean.init()}" icon="ui-icon-search"
                                      update=":formList"/>
-                    <p:commandButton id="btnView" value="查看" action="#{salesTransactionManagedBean.view('salesorderView')}" icon="ui-icon-document"/>
+                    <p:commandButton id="btnView" value="查看" action="#{businessOutManagedBean.view('dailyoutView')}" icon="ui-icon-document"/>
                 </f:facet>
                 <f:facet name="right">
-                    <p:commandButton id="btnEdit" action="#{salesTransactionManagedBean.edit('salesorderEdit')}" icon="ui-icon-pencil" value="编辑"
-                                     rendered="#{salesTransactionManagedBean.doEdit}"/>
-                    <p:commandButton id="btnDelete" actionListener="#{salesTransactionManagedBean.delete()}" icon="ui-icon-trash" value="删除"
-                                     rendered="#{salesTransactionManagedBean.doDel}" update=":formList">
+                    <p:commandButton id="btnEdit" action="#{businessOutManagedBean.edit('dailyoutEdit')}" icon="ui-icon-pencil" value="编辑"
+                                     rendered="#{businessOutManagedBean.doEdit}"/>
+                    <p:commandButton id="btnDelete" actionListener="#{businessOutManagedBean.delete()}" icon="ui-icon-trash" value="删除"
+                                     rendered="#{businessOutManagedBean.doDel}" update=":formList">
                         <p:confirm header="系统提示" message="删除吗?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    <p:commandButton id="btnUnverify" actionListener="#{salesTransactionManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
-                                     rendered="#{salesTransactionManagedBean.doUnCfm}"  update=":formList"/>
-                    <p:commandButton id="btnCreate" action="#{salesTransactionManagedBean.create('salesorderNew')}" icon="ui-icon-plus" value="新增"
-                                     rendered="#{salesTransactionManagedBean.doAdd}"/>
-                    <p:commandButton id="btnReset" value="重置" actionListener="#{salesTransactionManagedBean.reset()}"  icon="ui-icon-refresh"
+                    <p:commandButton id="btnUnverify" actionListener="#{businessOutManagedBean.unverify()}" icon="ui-icon-unlocked" value="还原"
+                                     rendered="#{businessOutManagedBean.doUnCfm}"  update=":formList"/>
+                    <p:commandButton id="btnCreate" action="#{businessOutManagedBean.create('dailyoutNew')}" icon="ui-icon-plus" value="新增"
+                                     rendered="#{businessOutManagedBean.doAdd}"/>
+                    <p:commandButton id="btnReset" value="重置" actionListener="#{businessOutManagedBean.reset()}"  icon="ui-icon-refresh"
                                      update=":formList"/>
-                    <p:commandButton id="btnQuery" value="查询" actionListener="#{salesTransactionManagedBean.query()}"  icon="ui-icon-search"
+                    <p:commandButton id="btnQuery" value="查询" actionListener="#{businessOutManagedBean.query()}"  icon="ui-icon-search"
                                      update=":formList"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataTable value="#{salesTransactionManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
+            <p:dataTable value="#{businessOutManagedBean.model}" var="item"  tableStyleClass="tableList" paginator="true" paginatorPosition="bottom" rows="15"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="15,30,45"  lazy="true"
-                         selectionMode="single" selection="#{salesTransactionManagedBean.currentEntity}" rowKey="#{item.id}" >
+                         selectionMode="single" selection="#{businessOutManagedBean.currentEntity}" rowKey="#{item.id}" >
                 <f:facet name="header">
-                    外卖登记
+                    日常开支
                 </f:facet>
                 <p:ajax event="rowSelect"  update=":formList:toolbar" />
                 <p:ajax event="rowUnselect" update=":formList:toolbar" />
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="外卖编号"/>
+                        <h:outputText value="支出编号"/>
                     </f:facet>
-                    <h:outputText value="#{item.formid}"/>
+                    <h:outputText value="#{item.formid}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="客户"/>
+                        <h:outputText value="支出日期"/>
                     </f:facet>
-                    <h:outputText value="#{item.customer.customer}"/>
+                    <h:outputText value="#{item.formdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd" />
+                    </h:outputText>
                 </p:column>
                 <p:column styleClass="Wid20">
                     <f:facet name="header">
-                        <h:outputText value="内容"/>
+                        <h:outputText value="分类"/>
                     </f:facet>
                     <h:outputText value="#{item.formkind}"/>
                 </p:column>
-                <p:column styleClass="Wid10 TexAlRight">
+                <p:column styleClass="Wid30">
                     <f:facet name="header">
-                        <h:outputText value="数量"/>
+                        <h:outputText value="摘要"/>
                     </f:facet>
-                    <h:outputText value="#{item.qty}"/>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlRight">
-                    <f:facet name="header">
-                        <h:outputText value="单价"/>
-                    </f:facet>
-                    <h:outputText value="#{item.price}"/>
+                    <h:outputText value="#{item.summary}"/>
                 </p:column>
                 <p:column styleClass="Wid10 TexAlRight">
                     <f:facet name="header">
@@ -101,11 +95,11 @@
                     </f:facet>
                     <h:outputText value="#{item.amts}"/>
                 </p:column>
-                <p:column styleClass="Wid10 TexAlRight">
+                <p:column styleClass="Wid10">
                     <f:facet name="header">
-                        <h:outputText value="已收"/>
+                        <h:outputText value="经办人"/>
                     </f:facet>
-                    <h:outputText value="#{item.recamt}"/>
+                    <h:outputText value="#{item.username}"/>
                 </p:column>
                 <p:column styleClass="Wid10">
                     <f:facet name="header">
